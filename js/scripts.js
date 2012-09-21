@@ -139,11 +139,11 @@ var v65wb = {
 				var recipeDrilldownLayout = parseFiles.find("td:contains('Recipe Drilldown')").next().html().replace(".cfm", ".htm");
 				parseForm.find("[name=RecipeDrilldownLayout]").val(recipeDrilldownLayout);
 
-				$("#parseFile").before('<a href="#" id="clearFiles">Clear Files&nbsp;<img src="/assets/images/icons/next.png" width="16" height="16" border="0" align="absmiddle"></a>&nbsp;&nbsp;&nbsp;&nbsp;');
-				
-				$("#clearFiles").click(function(e) {
+				parseForm.find("#parseFile").before('<a href="#" id="clearFiles">Clear Files&nbsp;<img src="/assets/images/icons/next.png" width="16" height="16" border="0" align="absmiddle"></a>&nbsp;&nbsp;&nbsp;&nbsp;');
+
+				parseForm.find("#clearFiles").click(function(e) {
 					e.preventDefault();
-					$("#parseForm select").val("");
+					parseForm.find("select").val("");
 					return false;
 				});
 			});
@@ -163,7 +163,7 @@ var v65wb = {
 			$(".v65wb-modalWrapper .v65wb-modal").html("");		
 		});
 
-		var iframe = '<iframe src="'+url+'" width="'+width+'" height="'+height+'" scrolling="no" frameborder="0" hspace="0" vspace="0" class="v65wb-iFramePopup" name="EditWindow"></iframe>';
+		var iframe = '<iframe src="'+url+'" width="'+width+'" height="'+height+'" scrolling="no" frameborder="0" hspace="0" vspace="0" id="iFramePopup" class="v65wb-iFramePopup" name="EditWindow"></iframe>';
 
 		$(".v65wb-modalWrapper .v65wb-modal").html(iframe).show();
 		$(".v65wb-modalWrapper").show();
