@@ -45,6 +45,31 @@ var v65wb = {
 		$(".v65wb-button").css({"margin-left": "250px"}, 500);
 		$(".v65wb").css({"left" : "250px"}, 500);
 	},
+
+	karsonInit: function(){
+
+		v65wb.projectChecklist();
+		$("html").prepend("<div class='v65wb-button'></div>");
+		$(".v65wb-button").fadeIn();
+		$("html").prepend("<div class='v65wb' />");
+		$(".v65wb").load("chrome-extension://"+$extID+"/html/sidebar.html",function(){
+			$("[v65wbjs=modalWindow]").click(function(e){
+				e.preventDefault();
+				v65wb.modal($(this).attr("href"), $(this).attr("v65wbjsModalHeight"), $(this).attr("v65wbjsModalWidth"));
+				return false;
+			});
+			v65wb.getWebsiteTitle();
+			v65wb.initWebsitePicker();
+			v65wb.setWebsiteLink();
+			v65wb.loadDesignerLaunchFields();
+
+		});
+		v65wb.showHideSideBar();
+		$(".v65wb").addClass("active");
+		$("body").css({"width": "-=267px", "margin-left": "250px"}, 500);
+		$(".v65wb-button").css({"margin-left": "250px"}, 500);
+		$(".v65wb").css({"left" : "250px"}, 500);
+	},
 	
 	showHideSideBar: function(){
 		$(".v65wb-button").click(function(){
@@ -211,12 +236,12 @@ var v65wb = {
 		
 };
 
-if($title.indexOf("Vin 65 Admin Panel") != -1){
-	
-	v65wb.initSideBar();
+if($("#userProfile .title a").text().indexOf("Karson") != -1){
 
-	//v65wb.basecampTasks();
+	v65wb.karsonInit();
 
 }else{
-	//console.log("um, where are you?");
+
+	v65wb.initSideBar();
+
 }
