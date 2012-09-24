@@ -37,6 +37,7 @@ var v65wb = {
 			v65wb.setWebsiteLink();
 			v65wb.loadDesignerLaunchFields();
 			v65wb.moveMainNav();
+			v65wb.addAdminLinkClass();
 
 		});
 		v65wb.showHideSideBar();
@@ -63,6 +64,7 @@ var v65wb = {
 			v65wb.setWebsiteLink();
 			v65wb.loadDesignerLaunchFields();
 			v65wb.karsonMainNav();
+			v65wb.addAdminLinkClass();
 
 		});
 		v65wb.showHideSideBar();
@@ -228,6 +230,14 @@ var v65wb = {
 		$(".v65wb-favLinks").after(mainNav);
 		mainNav.addClass("v65wb-adminNav")
 		$(".v65wb-adminNav").find("img").remove();
+	},
+
+	addAdminLinkClass: function(){
+		$(".v65wb-adminNav li").each(function(){
+			var linkText = $(this).children("a").text();
+			linkText = linkText.replace(/\s|&nbsp;/g, '');
+			$(this).addClass(linkText);
+		});
 	},
 
 	moveSubNav: function(){
