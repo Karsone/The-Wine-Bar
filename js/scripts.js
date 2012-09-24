@@ -3,6 +3,7 @@ $title = document.title;
 $author = $('meta[name=platform]').attr("content");
 $extID = chrome.i18n.getMessage('@@extension_id');
 $websiteURL = window.location.host;
+$websitePathName = window.location.pathname;
 $CFID = null;
 var basecampURL = "https://vin65.basecamphq.com";
 var basecampId = 8280143;
@@ -35,6 +36,7 @@ var v65wb = {
 			v65wb.initWebsitePicker();
 			v65wb.setWebsiteLink();
 			v65wb.loadDesignerLaunchFields();
+			v65wb.moveMainNav();
 
 		});
 		v65wb.showHideSideBar();
@@ -184,6 +186,27 @@ var v65wb = {
 		var url = $("#userProfile div:nth-child(2n) a:first-child").attr("href");
 		var options = url.split("'");
 		$(".v65wb-viewWebsite").attr("href",options[1]);
+	},
+
+	moveMainNav: function(){
+		var mainNav = $("#navigationWrapper ul");
+		mainNav.detach();
+		$(".v65wb-favLinks").after(mainNav);
+		mainNav.addClass("v65wb-adminNav")
+		$("#navigationWrapper").hide();
+		mainNav.find("img").remove();
+	},
+
+	moveSubNav: function(){
+
+		if($websitePathName.indexOf("dashboard") != -1){
+			var subNav = $("#iFrameWrapper #subNavigation");
+			subNav.detach();
+			$(".v65wb-adminNav a[href^='/dashboard']").append(subNav);
+		} else{
+			var iframeContent = $("#iFrameWrapper iframe").contents();
+			var subNav = iframeContent.find("#subNavigation");
+		}		
 	}
 		
 };
