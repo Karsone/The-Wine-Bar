@@ -62,6 +62,7 @@ var v65wb = {
 			v65wb.initWebsitePicker();
 			v65wb.setWebsiteLink();
 			v65wb.loadDesignerLaunchFields();
+			v65wb.karsonMainNav();
 
 		});
 		v65wb.showHideSideBar();
@@ -222,6 +223,13 @@ var v65wb = {
 		mainNav.find("img").remove();
 	},
 
+	karsonMainNav: function(){
+		var mainNav = $("#navigationWrapper ul").clone();
+		$(".v65wb-favLinks").after(mainNav);
+		mainNav.addClass("v65wb-adminNav")
+		$(".v65wb-adminNav").find("img").remove();
+	},
+
 	moveSubNav: function(){
 
 		if($websitePathName.indexOf("dashboard") != -1){
@@ -236,12 +244,10 @@ var v65wb = {
 		
 };
 
-if($("#userProfile .title a").text().indexOf("Karson") != -1){
-
+if($title.indexOf("Vin 65 Admin Panel") != -1 && $("#userProfile .title a").text().indexOf("Karson") != -1){
 	v65wb.karsonInit();
-
-}else{
-
+}else if ($title.indexOf("Vin 65 Admin Panel") != -1){
 	v65wb.initSideBar();
-
+}else{
+	//console.log("um, where are you?");
 }
