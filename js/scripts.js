@@ -1,5 +1,4 @@
 //globals
-$title = document.title;
 $author = $('meta[name=platform]').attr("content");
 $extID = chrome.i18n.getMessage('@@extension_id');
 $websiteURL = window.location.host;
@@ -20,35 +19,6 @@ var v65wb = {
 
 	//global functions
 	initSideBar: function(){
-
-		$("#masterNavWrapper, #headerWrapper").hide();
-		v65wb.projectChecklist();
-		$("html").prepend("<div class='v65wb-button'></div>");
-		$(".v65wb-button").fadeIn();
-		$("html").prepend("<div class='v65wb' />");
-		$(".v65wb").load("chrome-extension://"+$extID+"/html/sidebar.html",function(){
-			$("[v65wbjs=modalWindow]").click(function(e){
-				e.preventDefault();
-				v65wb.modal($(this).attr("href"), $(this).attr("v65wbjsModalHeight"), $(this).attr("v65wbjsModalWidth"));
-				return false;
-			});
-			v65wb.getWebsiteTitle();
-			v65wb.initWebsitePicker();
-			v65wb.setWebsiteLink();
-			v65wb.loadDesignerLaunchFields();
-			v65wb.moveMainNav();
-			v65wb.addAdminLinkClass();
-
-		});
-		v65wb.showHideSideBar();
-		$(".v65wb").addClass("active");
-		$("body").css({"width": "-=267px", "margin-left": "250px"}, 500);
-		$(".v65wb-button").css({"margin-left": "250px"}, 500);
-		$(".v65wb").css({"left" : "250px"}, 500);
-	},
-
-	karsonInit: function(){
-
 		v65wb.projectChecklist();
 		$("html").prepend("<div class='v65wb-button'></div>");
 		$(".v65wb-button").fadeIn();
@@ -72,8 +42,7 @@ var v65wb = {
 		$("body").css({"width": "-=267px", "margin-left": "250px"}, 500);
 		$(".v65wb-button").css({"margin-left": "250px"}, 500);
 		$(".v65wb").css({"left" : "250px"}, 500);
-	},
-	
+	},	
 	showHideSideBar: function(){
 		$(".v65wb-button").click(function(){
 			$(".v65wb").toggleClass("active");
@@ -88,12 +57,10 @@ var v65wb = {
 			}
 		});
 	},
-
 	getWebsiteTitle: function(){
 		var website_title = $("#website .title").text();
 		$(".v65wb-websiteTitle").append("<h2>"+website_title+"</h2>")
 	},
-
 	initWebsitePicker: function(){
 		var masterNav = $("#masterNav form");
 		masterNav.detach();
@@ -101,7 +68,6 @@ var v65wb = {
 		$(".v65wb-master input[type='image']").remove();
 		$(".v65wb-master form").append('<div class="v65wb-message v65wb-authenticate"><input type="submit" value="Authenticate" /></div>');
 	},
-
 	projectChecklist: function(){
 		$("iframe[src='/vin65/index.cfm?method=userreports.listProjectTasksModal']").addClass("listProjectTasksModal").parent().hide().prev().hide();
 
@@ -123,7 +89,6 @@ var v65wb = {
 			//iframeContent.find("td:contains(Vin65 Launch Q/A)").parent().addCLass("v65wb-v65LaunchQA");
 		});
 	},
-
 	loadDesignerLaunchFields: function(){
 		$(".v65wb-designerLaunch").click(function(){
 			$(".v65wb-iFramePopup").load(function(){
@@ -176,6 +141,17 @@ var v65wb = {
 					parseForm.find("select").val("");
 					return false;
 				});
+			});
+		});
+	},
+
+	analytics : function(){
+		$(".v65wb-websiteSettings").click(function(){
+			$(".v65wb-iFramePopup").load(function(){
+				var iframeContent = $(".v65wb-iFramePopup").contents();
+				iframeContent.find("#accordion:contains('Analytics')").click(function(){
+					
+				})
 			});
 		});
 	},
@@ -254,10 +230,6 @@ var v65wb = {
 		
 };
 
-if($title.indexOf("Vin 65 Admin Panel") != -1 && $("#userProfile .title a").text().indexOf("Karson") != -1){
-	v65wb.karsonInit();
-}else if ($title.indexOf("Vin 65 Admin Panel") != -1){
+if(document.location == top.location && top.location.hostname.indexOf("siteadmin") > -1 && document.title.indexOf("Vin65") > -1){
 	v65wb.initSideBar();
-}else{
-	//console.log("um, where are you?");
 }
