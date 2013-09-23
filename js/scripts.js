@@ -187,13 +187,13 @@ var v65wb = {
 	},
 
 	setWebsiteLink: function(){
-		var url = $("#userProfile div:nth-child(2n) a:first-child").attr("href");
+		var url = $(".v65-user-profile li:nth-child(2n) li:first a").attr("href");
 		var options = url.split("'");
 		$(".v65wb-viewWebsite").attr("href",options[1]);
 	},
 
 	moveMainNav: function(){
-		var mainNav = $("#navigationWrapper ul");
+		var mainNav = $(".v65-main-navigation ul");
 		mainNav.detach();
 		$(".v65wb-favLinks").after(mainNav);
 		mainNav.addClass("v65wb-adminNav")
@@ -202,7 +202,7 @@ var v65wb = {
 	},
 
 	karsonMainNav: function(){
-		var mainNav = $("#navigationWrapper ul").clone();
+		var mainNav = $(".v65-main-navigation ul").clone();
 		$(".v65wb-favLinks").after(mainNav);
 		mainNav.addClass("v65wb-adminNav")
 		$(".v65wb-adminNav").find("img").remove();
